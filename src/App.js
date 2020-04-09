@@ -11,7 +11,7 @@ import AlphaBlog from './pages/AlphaBlog'
 function App() {
   return (
     <Switch>
-      <Route exact path="*" component={HomePage} />
+      <Route exact path="/" component={HomePage} />
       <Route exact path="/alpha-blog" component={AlphaBlog} />
     </Switch>
   );
