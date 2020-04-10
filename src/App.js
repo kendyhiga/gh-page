@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { HashRouter, Route, Link } from "react-router-dom";
+import { HashRouter, Route } from "react-router-dom";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import './List.css';
 
 import HomePage from './pages/HomePage'
-import AlphaBlog from './pages/AlphaBlog'
+import AlphaBlog from './pages/AlphaBlog/AlphaBlog'
 
 class App extends Component {
   render() {
