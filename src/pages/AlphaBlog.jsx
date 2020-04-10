@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
@@ -15,7 +16,7 @@ function AlphaBlog() {
             The Complete Ruby on Rails Developer Course</a>.
         </span>
 
-        <h4><a href='/'>Voltar</a></h4>
+        <h4><Link to="/">Voltar</Link></h4>
       </div>
     </div>
   );

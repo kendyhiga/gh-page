@@ -13,7 +13,7 @@ class App extends Component {
     return (
       <HashRouter basename="/">
         <Route exact path="/" component={HomePage} />
-        <Route exact path="/alpha-blog" component={AlphaBlog} />
+        <Route path="/alpha-blog" component={AlphaBlog} />
       </HashRouter>
     );
   }

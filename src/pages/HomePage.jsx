@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
@@ -13,7 +14,7 @@ function HomePage() {
       </div>
       <div className='List col-xs-12 col-sm-12 col-md-12'>
         <ul>
-          <li><h4><a href='/#/alpha-blog'>Alpha Blog</a></h4></li>
+          <li><h4><Link to="/alpha-blog">Alpha Blog</Link></h4></li>
           <li><h4>Calculadora</h4></li>
           <li><h4>Cookbook</h4></li>
         </ul>
