@@ -1,10 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../App.css';
-import '../../List.css';
-
 import Carousel from 'react-images';
 import alphaImage1 from './alpha-blog1.png'
 import alphaImage2 from './alpha-blog2.png'
@@ -24,7 +20,7 @@ function AlphaBlog() {
         </span>
         <h4><Link to="/">Voltar</Link></h4>
         <h4>Screenshots:</h4>
-        <Carousel views={images} />
+        <Carousel views={images} />;
       </div>
     </div>
   );
