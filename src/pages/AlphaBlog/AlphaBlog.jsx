@@ -18,9 +18,9 @@ function AlphaBlog() {
           Udemy: <a href='https://www.udemy.com/course/the-complete-ruby-on-rails-developer-course/' target='_blank' rel='noopener noreferrer'>
             The Complete Ruby on Rails Developer Course</a>.
         </span>
-        <h4><Link to='/'>Voltar</Link></h4>
         <h4>Screenshots:</h4>
         <Carousel views={images} />
+        <h4><Link to='/'>Voltar</Link></h4>
       </div>
     </div>
   );

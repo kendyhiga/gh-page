@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { HashRouter, Route } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -12,12 +13,14 @@ import Cookbook from './pages/Cookbook/Cookbook';
 class App extends Component {
   render() {
     return (
-      <HashRouter basename="/">
-        <Route exact path="/" component={HomePage} />
-        <Route path="/alpha-blog" component={AlphaBlog} />
-        <Route path="/calculator" component={Calculator} />
-        <Route path="/cookbook" component={Cookbook} />
-      </HashRouter>
+      <div className='App col-xs-12 col-sm-12 col-md-12'>
+        <HashRouter basename="/">
+          <Route exact path="/" component={HomePage} />
+          <Route path="/alpha-blog" component={AlphaBlog} />
+          <Route path="/calculator" component={Calculator} />
+          <Route path="/cookbook" component={Cookbook} />
+        </HashRouter>
+      </div>
     );
   }
 }

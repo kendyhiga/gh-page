@@ -16,14 +16,18 @@ function Cookbook() {
       <div className='App'>
         <h1>Cookbook</h1>
         <p><a href='https://github.com/kendyhiga/cookbook-treinadev' target='_blank' rel='noopener noreferrer'>[Link do Repositório]</a></p>
-        <span>Este projeto em Ruby on Rails consiste
-          numa calculadora, que foi criada a partir do curso da
-          Udemy: <a href='https://www.udemy.com/course/react-redux-pt/' target='_blank' rel='noopener noreferrer'>
-          Curso React + Redux: Fundamentos e 2 Apps do Absoluto ZERO!</a>.
-        </span>
-        <h4><Link to='/'>Voltar</Link></h4>
+        <p>
+          Este projeto em Ruby on Rails consiste numa plataforma de receitas, que foi criada no 
+          curso <a href='https://www.treinadev.com.br/' target='_blank' rel='noopener noreferrer'>TreinaDev </a>
+          da <a href='https://www.campuscode.com.br/' target='_blank' rel='noopener noreferrer'>Campus Code</a>.
+        </p>
+        <p>
+          O site atualmente esta hospedado no Heroku e pode ser acessado através do link: 
+          <a href='http://cookbook-practice.herokuapp.com/' target='_blank' rel='noopener noreferrer'> http://cookbook-practice.herokuapp.com/</a>
+        </p>
         <h4>Screenshots:</h4>
         <Carousel views={images} />
+        <h4><Link to='/'>Voltar</Link></h4>
       </div>
     </div>
   );

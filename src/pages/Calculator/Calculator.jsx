@@ -18,9 +18,9 @@ function Calculator() {
           Udemy: <a href='https://www.udemy.com/course/react-redux-pt/' target='_blank' rel='noopener noreferrer'>
           Curso React + Redux: Fundamentos e 2 Apps do Absoluto ZERO!</a>.
         </span>
-        <h4><Link to='/'>Voltar</Link></h4>
         <h4>Screenshots:</h4>
         <Carousel views={images} />
+        <h4><Link to='/'>Voltar</Link></h4>
       </div>
     </div>
   );
