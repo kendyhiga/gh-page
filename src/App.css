@@ -42,6 +42,15 @@ body{
   }
 }
 
+.jumbotron-custom {
+  background-color: #303040;
+}
+
+.card-custom {
+  width: 25rem;
+}
+
+
 ul {
   display: table;
   margin: 0 auto;
