@@ -12,13 +12,13 @@ function HomePage() {
         <p className="lead">Este SPA foi criado em React com objetivo resumir alguns dos meus projetos.</p>
       </div>
       <div className='row'>
-          <div className="card-deck">
-            <Card link='/alpha-blog' name='AlphaBlog'/>
-            <Card link='/calculator' name='Calculator'/>
-            <Card link='/cookbook' name='Cookbook'/>
-          </div>
+        <div className="card-deck">
+          <Card link='/alpha-blog' name='AlphaBlog'/>
+          <Card link='/calculator' name='Calculadora'/>
+          <Card link='/cookbook' name='Cookbook'/>
         </div>
       </div>
+    </div>
   );
 }
 

@@ -6,16 +6,15 @@ import calculator1 from './Calculator/calculator1.png'
 import cookbook1 from './Cookbook/cookbook1.png'
 
 const getImage = name => {
-  if(name === 'AlphaBlog')
-    return alphaImage1
-  else if (name === 'Calculator')
-    return calculator1
-  else if (name === 'Cookbook'){
-    return cookbook1
+  switch (name) {
+    case 'AlphaBlog': return alphaImage1;
+    case 'Calculadora': return calculator1;
+    case 'Cookbook': return cookbook1;
+    default: return;
   }
 }
 
-const Card = props =>
+const Card = (props) =>
   <div className="card card-custom">
     <Link to={props.link}>
       <img className="card-img card-img-top" alt={props.name + 'Screenshot'} src={getImage(props.name)}></img>
