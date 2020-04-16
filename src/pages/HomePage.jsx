@@ -21,14 +21,14 @@ export default class HomePage extends Component {
 
   setFilter = (filter) => {
     if(filter === 'all') {
-      return this.setState(state => ({
+      return this.setState({
         filtered_cards: this.state.cards
-      }));
+      });
     }
     const cards = this.state.cards.filter(card => card.language === filter)
-      this.setState(state => ({
+      this.setState({
       filtered_cards: cards
-    }));
+    });
   }
 
   render() {
@@ -38,20 +38,18 @@ export default class HomePage extends Component {
           <h1 className="display-4">Meus repositórios do <a href='https://github.com/kendyhiga/' target='_blank' rel='noopener noreferrer'>GitHub</a></h1>
           <p className="lead">Este SPA foi criado em React com objetivo resumir alguns dos meus projetos.</p>
         </div>
-          <div className="btn-group d-flex" role="group">
-            <button className="btn btn-primary" onClick={() => this.setFilter('all')}>Tudo</button>
-            <button className="btn btn-primary" onClick={() => this.setFilter('ruby')}>Ruby</button>
-            <button className="btn btn-primary" onClick={() => this.setFilter('react')}>React</button>
+        <div className="btn-group d-flex" role="group">
+          <button className="btn btn-primary" onClick={() => this.setFilter('all')}>Tudo</button>
+          <button className="btn btn-primary" onClick={() => this.setFilter('ruby')}>Ruby</button>
+          <button className="btn btn-primary" onClick={() => this.setFilter('react')}>React</button>
         </div>
         <br></br>
-        <div className='row'>
-          <div className="card-deck">
-            {
-              this.state.filtered_cards.map((card, index) =>
-                <Card key={index} link={card.link} name={card.name}/>
-              )
-            }
-          </div>
+        <div className="card-deck">
+          {
+            this.state.filtered_cards.map((card, index) =>
+              <Card key={index} link={card.link} name={card.name}/>
+            )
+          }
         </div>
       </div>
     );

@@ -23,7 +23,7 @@ function Cookbook() {
         </p>
         <p>
           O site atualmente esta hospedado no Heroku e pode ser acessado através do link: 
-          <a href='http://cookbook-practice.herokuapp.com/' target='_blank' rel='noopener noreferrer'> http://cookbook-practice.herokuapp.com/</a>
+          <a href='https://cookbook-practice.herokuapp.com/' target='_blank' rel='noopener noreferrer'> https://cookbook-practice.herokuapp.com/</a>
         </p>
         <h4>Screenshots:</h4>
         <Carousel views={images} />
