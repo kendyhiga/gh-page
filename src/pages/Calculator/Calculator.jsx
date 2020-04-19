@@ -1,11 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Carousel from 'react-images';
 import calculator1 from './calculator1.png'
 import calculator2 from './calculator2.png'
 
-const images = [{ source: calculator1 }, { source: calculator2 }];
+import Gallery from '../Gallery'
+
+const images = [
+  {
+    original: calculator1,
+    thumbnail: calculator1,
+  },
+  {
+    original: calculator2,
+    thumbnail: calculator2,
+  }
+];
 
 function Calculator() {
   return (
@@ -19,7 +29,7 @@ function Calculator() {
           Curso React + Redux: Fundamentos e 2 Apps do Absoluto ZERO!</a>.
         </span>
         <h4>Screenshots:</h4>
-        <Carousel views={images} />
+        <Gallery images={images} />
         <h4><Link to='/'>Voltar</Link></h4>
       </div>
     </div>

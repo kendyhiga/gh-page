@@ -1,19 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import alphaImage1 from './alpha-blog1.png'
-import alphaImage2 from './alpha-blog2.png'
+import alphaImage1 from './alpha1.png'
+import alphaImage2 from './alpha2.png'
+import alphaImage3 from './alpha3.png'
 
 import Gallery from '../Gallery'
 
 const images = [
   {
     original: alphaImage1,
-    thumbnail: 'https://picsum.photos/id/1018/250/150/',
+    thumbnail: alphaImage1,
   },
   {
     original: alphaImage2,
-    thumbnail: 'https://picsum.photos/id/1015/250/150/',
+    thumbnail: alphaImage2,
+  },
+  {
+    original: alphaImage3,
+    thumbnail: alphaImage3,
   }
 ];
 

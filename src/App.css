@@ -27,11 +27,6 @@ body{
   /* height: 12rem; */
 }
 
-.card-custom {
-  position: relative;
-  width: 25rem;
-}
-
 .card-img {
   opacity: 1;
   display: block;

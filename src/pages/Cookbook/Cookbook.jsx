@@ -2,13 +2,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Carousel from 'react-images';
 import cookbook1 from './cookbook1.png'
 import cookbook2 from './cookbook2.png'
 import cookbook3 from './cookbook3.png'
 import cookbook4 from './cookbook4.png'
 
-const images = [{ source: cookbook1 }, { source: cookbook2 }, { source: cookbook3 }, { source: cookbook4 }];
+import Gallery from '../Gallery'
+
+const images = [
+  {
+    original: cookbook1,
+    thumbnail: cookbook1,
+  },
+  {
+    original: cookbook2,
+    thumbnail: cookbook2,
+  },
+  {
+    original: cookbook3,
+    thumbnail: cookbook3,
+  },
+  {
+    original: cookbook4,
+    thumbnail: cookbook4,
+  }
+];
 
 function Cookbook() {
   return (
@@ -26,7 +44,7 @@ function Cookbook() {
           <a href='https://cookbook-practice.herokuapp.com/' target='_blank' rel='noopener noreferrer'> https://cookbook-practice.herokuapp.com/</a>
         </p>
         <h4>Screenshots:</h4>
-        <Carousel views={images} />
+        <Gallery images={images} />
         <h4><Link to='/'>Voltar</Link></h4>
       </div>
     </div>
