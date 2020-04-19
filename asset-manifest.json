@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/gh-page/static/css/main.db95ffd7.chunk.css",
-    "main.js": "/gh-page/static/js/main.775929c5.chunk.js",
-    "main.js.map": "/gh-page/static/js/main.775929c5.chunk.js.map",
+    "main.css": "/gh-page/static/css/main.ad5400a1.chunk.css",
+    "main.js": "/gh-page/static/js/main.c950c1ef.chunk.js",
+    "main.js.map": "/gh-page/static/js/main.c950c1ef.chunk.js.map",
     "runtime-main.js": "/gh-page/static/js/runtime-main.4e546477.js",
     "runtime-main.js.map": "/gh-page/static/js/runtime-main.4e546477.js.map",
     "static/css/2.de424728.chunk.css": "/gh-page/static/css/2.de424728.chunk.css",
-    "static/js/2.4653e65c.chunk.js": "/gh-page/static/js/2.4653e65c.chunk.js",
-    "static/js/2.4653e65c.chunk.js.map": "/gh-page/static/js/2.4653e65c.chunk.js.map",
+    "static/js/2.98b0fe91.chunk.js": "/gh-page/static/js/2.98b0fe91.chunk.js",
+    "static/js/2.98b0fe91.chunk.js.map": "/gh-page/static/js/2.98b0fe91.chunk.js.map",
     "index.html": "/gh-page/index.html",
-    "precache-manifest.ac3a59bcaeeac1ecffd51bd74ac8590a.js": "/gh-page/precache-manifest.ac3a59bcaeeac1ecffd51bd74ac8590a.js",
+    "precache-manifest.2d6db296f36022b9fc37a8e34966a18d.js": "/gh-page/precache-manifest.2d6db296f36022b9fc37a8e34966a18d.js",
     "service-worker.js": "/gh-page/service-worker.js",
     "static/css/2.de424728.chunk.css.map": "/gh-page/static/css/2.de424728.chunk.css.map",
-    "static/css/main.db95ffd7.chunk.css.map": "/gh-page/static/css/main.db95ffd7.chunk.css.map",
-    "static/js/2.4653e65c.chunk.js.LICENSE.txt": "/gh-page/static/js/2.4653e65c.chunk.js.LICENSE.txt",
+    "static/css/main.ad5400a1.chunk.css.map": "/gh-page/static/css/main.ad5400a1.chunk.css.map",
+    "static/js/2.98b0fe91.chunk.js.LICENSE.txt": "/gh-page/static/js/2.98b0fe91.chunk.js.LICENSE.txt",
     "static/media/alpha-blog1.png": "/gh-page/static/media/alpha-blog1.28b41a42.png",
     "static/media/alpha-blog2.png": "/gh-page/static/media/alpha-blog2.8be5b8ef.png",
     "static/media/calculator1.png": "/gh-page/static/media/calculator1.6944a4b1.png",
@@ -26,8 +26,8 @@
   "entrypoints": [
     "static/js/runtime-main.4e546477.js",
     "static/css/2.de424728.chunk.css",
-    "static/js/2.4653e65c.chunk.js",
-    "static/css/main.db95ffd7.chunk.css",
-    "static/js/main.775929c5.chunk.js"
+    "static/js/2.98b0fe91.chunk.js",
+    "static/css/main.ad5400a1.chunk.css",
+    "static/js/main.c950c1ef.chunk.js"
   ]
 }
