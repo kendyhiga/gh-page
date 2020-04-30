@@ -7,24 +7,26 @@ body{
   color: #E0E0E0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.animated {
+  -webkit-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-.jumbotron-custom {
+.bg-overlay .jumbotron {
   background-color: #303040;
-  /* height: 12rem; */
+}
+
+.bg-overlay:hover .jumbotron {
+  background: rgba(0,0,0,0.6);
+}
+
+.btn-custom {
+  background-color: #434A4F;
+}
+
+.card-columns {
+  column-count: 2;
 }
 
 .card-img {

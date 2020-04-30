@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage';
 import AlphaBlog from './pages/AlphaBlog/AlphaBlog';
 import Calculator from './pages/Calculator/Calculator';
 import Cookbook from './pages/Cookbook/Cookbook';
+import Shoutr from './pages/Shoutr/Shoutr';
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
           <Route path="/alpha-blog" component={AlphaBlog} />
           <Route path="/calculator" component={Calculator} />
           <Route path="/cookbook" component={Cookbook} />
+          <Route path="/shoutr" component={Shoutr} />
         </HashRouter>
       </div>
     );

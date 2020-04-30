@@ -11,7 +11,8 @@ export default class HomePage extends Component {
     const cards = [
       { language: 'ruby', link: '/alpha-blog', name: 'AlphaBlog' },
       { language: 'react', link: '/calculator', name: 'Calculadora' },
-      { language: 'ruby', link: '/cookbook', name: 'Cookbook' }
+      { language: 'ruby', link: '/cookbook', name: 'Cookbook' },
+      { language: 'ruby', link: '/shoutr', name: 'Shoutr' },
     ]
     this.state = {
       cards: cards,
@@ -34,17 +35,19 @@ export default class HomePage extends Component {
   render() {
     return (
       <div className='container'>
-        <div className="jumbotron jumbotron-fluid jumbotron-custom">
-          <h1 className="display-4">Meus repositórios do <a href='https://github.com/kendyhiga/' target='_blank' rel='noopener noreferrer'>GitHub</a></h1>
-          <p className="lead">Este SPA foi criado em React com objetivo resumir alguns dos meus projetos.</p>
+        <div className='bg-overlay'>
+          <div className='jumbotron jumbotron-fluid jumbotron-custom animated'>
+            <h1 className='display-4'>Meus repositórios do <a href='https://github.com/kendyhiga/' target='_blank' rel='noopener noreferrer'>GitHub</a></h1>
+            <p className='lead'>Este SPA foi criado em React com objetivo de resumir alguns dos meus projetos.</p>
+          </div>
         </div>
-        <div className="btn-group d-flex" role="group">
-          <button className="btn btn-primary" onClick={() => this.setFilter('all')}>Tudo</button>
-          <button className="btn btn-primary" onClick={() => this.setFilter('ruby')}>Ruby</button>
-          <button className="btn btn-primary" onClick={() => this.setFilter('react')}>React</button>
+        <div className='btn-group d-flex' role='group'>
+          <button className='btn btn-secondary btn-custom' onClick={() => this.setFilter('all')}>Tudo</button>
+          <button className='btn btn-secondary btn-custom' onClick={() => this.setFilter('ruby')}>Ruby</button>
+          <button className='btn btn-secondary btn-custom' onClick={() => this.setFilter('react')}>React</button>
         </div>
         <br></br>
-        <div className="card-deck">
+        <div className='card-columns'>
           {
             this.state.filtered_cards.map((card, index) =>
               <Card key={index} link={card.link} name={card.name}/>
