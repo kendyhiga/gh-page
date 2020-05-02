@@ -7,6 +7,10 @@ body{
   color: #E0E0E0;
 }
 
+.jumbotron-custom {
+  height: 9rem;
+}
+
 .animated {
   -webkit-transition: all 1s ease;
   -o-transition: all 1s ease;
@@ -55,7 +59,6 @@ body{
 .card-custom:hover .card-middle {
   opacity: 1;
 }
-
 
 ul {
   display: table;

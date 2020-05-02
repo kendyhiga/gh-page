@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import calculator1 from './calculator1.png'
 import calculator2 from './calculator2.png'
 
+import JumbotronSmall from '../JumbotronSmall'
 import Gallery from '../Gallery'
 
 const images = [
@@ -20,7 +21,8 @@ const images = [
 function Calculator() {
   return (
     <div>
-      <div className='App'>
+      <div className='container'>
+        <JumbotronSmall />
         <h1>Calculadora</h1>
         <p><a href='https://github.com/kendyhiga/calculadora' target='_blank' rel='noopener noreferrer'>[Link do Repositório]</a></p>
         <span>Este projeto em React consiste

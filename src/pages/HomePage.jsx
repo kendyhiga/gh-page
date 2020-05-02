@@ -36,7 +36,7 @@ export default class HomePage extends Component {
     return (
       <div className='container'>
         <div className='bg-overlay'>
-          <div className='jumbotron jumbotron-fluid jumbotron-custom animated'>
+          <div className='jumbotron jumbotron-fluid animated'>
             <h1 className='display-4'>Meus repositórios do <a href='https://github.com/kendyhiga/' target='_blank' rel='noopener noreferrer'>GitHub</a></h1>
             <p className='lead'>Este SPA foi criado em React com objetivo de resumir alguns dos meus projetos.</p>
           </div>

@@ -6,6 +6,7 @@ import shoutr1 from './shoutr1.png'
 import shoutr2 from './shoutr2.png'
 import shoutr3 from './shoutr3.png'
 
+import JumbotronSmall from '../JumbotronSmall'
 import Gallery from '../Gallery'
 
 const images = [
@@ -26,7 +27,8 @@ const images = [
 function shoutr() {
   return (
     <div>
-      <div className='App'>
+      <div className='container'>
+        <JumbotronSmall />
         <h1>Shoutr</h1>
         <p><a href='https://github.com/kendyhiga/shoutr-treinadev' target='_blank' rel='noopener noreferrer'>[Link do Repositório]</a></p>
         <p>

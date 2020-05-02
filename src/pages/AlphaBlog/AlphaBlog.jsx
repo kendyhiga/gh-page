@@ -5,6 +5,7 @@ import alphaImage1 from './alpha1.png'
 import alphaImage2 from './alpha2.png'
 import alphaImage3 from './alpha3.png'
 
+import JumbotronSmall from '../JumbotronSmall'
 import Gallery from '../Gallery'
 
 const images = [
@@ -26,6 +27,7 @@ function AlphaBlog() {
   return (
     <div>
       <div className='container'>
+        <JumbotronSmall />
         <h1>Alpha Blog</h1>
         <p><a href='https://github.com/kendyhiga/alpha-blog' target='_blank' rel='noopener noreferrer'>[Link do Repositório]</a></p>
         <span>Este projeto em Ruby on Rails consiste

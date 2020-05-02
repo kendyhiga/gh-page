@@ -6,6 +6,7 @@ import cookbook2 from './cookbook2.png'
 import cookbook3 from './cookbook3.png'
 import cookbook4 from './cookbook4.png'
 
+import JumbotronSmall from '../JumbotronSmall'
 import Gallery from '../Gallery'
 
 const images = [
@@ -30,7 +31,8 @@ const images = [
 function Cookbook() {
   return (
     <div>
-      <div className='App'>
+      <div className='container'>
+        <JumbotronSmall />
         <h1>Cookbook</h1>
         <p><a href='https://github.com/kendyhiga/cookbook-treinadev' target='_blank' rel='noopener noreferrer'>[Link do Repositório]</a></p>
         <p>
