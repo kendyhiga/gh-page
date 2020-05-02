@@ -8,7 +8,7 @@ import shoutr1 from './Shoutr/shoutr1.png'
 
 const getImage = name => {
   switch (name) {
-    case 'AlphaBlog': return alphaImage1;
+    case 'Alpha Blog': return alphaImage1;
     case 'Calculadora': return calculator1;
     case 'Cookbook': return cookbook1;
     case 'Shoutr': return shoutr1;

@@ -8,7 +8,7 @@ body{
 }
 
 .jumbotron-custom {
-  height: 9rem;
+  height: 12rem;
 }
 
 .animated {
@@ -58,6 +58,72 @@ body{
 
 .card-custom:hover .card-middle {
   opacity: 1;
+}
+
+.container-card {
+  height: 5rem;
+  position: relative;
+  width: 100%;
+}
+
+.main-title {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.overlay {
+  text-align: left;
+  position: absolute;
+  bottom: 0;
+  left: 100%;
+  right: 0;
+  background-color: #303040;
+  overflow: hidden;
+  width: 0;
+  height: 100%;
+  transition: .5s ease;
+}
+
+.container-card:hover .overlay {
+  width: 100%;
+  left: 0;
+}
+
+.container-card-left {
+  height: 5rem;
+  position: relative;
+  width: 100%;
+}
+
+.container-card-left:hover .overlay-left {
+  width: 100%;
+  left: 0;
+}
+
+.overlay-left {
+  text-align: left;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #303040;
+  overflow: hidden;
+  width: 0;
+  height: 100%;
+  transition: .5s ease;
+}
+
+.card-text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
 }
 
 ul {

@@ -32,8 +32,7 @@ function Cookbook() {
   return (
     <div>
       <div className='container'>
-        <JumbotronSmall />
-        <h1>Cookbook</h1>
+      <JumbotronSmall name={'Cookbook'}/>
         <p><a href='https://github.com/kendyhiga/cookbook-treinadev' target='_blank' rel='noopener noreferrer'>[Link do Repositório]</a></p>
         <p>
           Este projeto em Ruby on Rails consiste numa plataforma de receitas, que foi criada no 

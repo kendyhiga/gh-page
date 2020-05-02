@@ -28,8 +28,7 @@ function shoutr() {
   return (
     <div>
       <div className='container'>
-        <JumbotronSmall />
-        <h1>Shoutr</h1>
+        <JumbotronSmall name={'Shoutr'}/>
         <p><a href='https://github.com/kendyhiga/shoutr-treinadev' target='_blank' rel='noopener noreferrer'>[Link do Repositório]</a></p>
         <p>
           Este projeto em Ruby on Rails consiste numa plataforma de mensagens inspirada no twitter, que foi criado no 

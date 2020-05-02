@@ -27,17 +27,51 @@ function AlphaBlog() {
   return (
     <div>
       <div className='container'>
-        <JumbotronSmall />
-        <h1>Alpha Blog</h1>
+        <JumbotronSmall name={'Alpha Blog'}/>
         <p><a href='https://github.com/kendyhiga/alpha-blog' target='_blank' rel='noopener noreferrer'>[Link do Repositório]</a></p>
-        <span>Este projeto em Ruby on Rails consiste
+        <h5>Este projeto em Ruby on Rails consiste
           num blog, que foi criado a partir do curso da
           Udemy: <a href='https://www.udemy.com/course/the-complete-ruby-on-rails-developer-course/' target='_blank' rel='noopener noreferrer'>
             The Complete Ruby on Rails Developer Course</a>.
-        </span>
-        <h4>Screenshots:</h4>
+        </h5>
+        <hr></hr>
+        <div className='row'>
+          <div className="container-card">
+            <div className="main-title"><h1>Recursos:</h1></div>
+            <div className="overlay">
+              <div className="text">
+                <ul>
+                  <h5>
+                    <li>Cadastro e login</li>
+                    <li>Edição do perfil</li>
+                    <li>Criação, edição e exclusão de artigos</li>
+                  </h5>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr></hr>
+        <div className='row'>
+          <div className="container-card-left float-right">
+            <div className="main-title"><h1>Ferramentas utilizadas:</h1></div>
+            <div className="overlay-left">
+              <div className="text">
+                <ul>
+                  <h5>
+                    <li>Bootstrap para o layout</li>
+                    <li>Devise para autenticação</li>
+                    <li>Gravatar para pegar o avatar</li>
+                  </h5>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr></hr>
+        <h3>Screenshots:</h3>
         <Gallery images={images} />
-        <h4><Link to='/'>Voltar</Link></h4>
+        <h3><Link to='/'>Voltar</Link></h3>
       </div>
     </div>
   );

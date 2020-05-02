@@ -22,8 +22,7 @@ function Calculator() {
   return (
     <div>
       <div className='container'>
-        <JumbotronSmall />
-        <h1>Calculadora</h1>
+      <JumbotronSmall name={'Calculadora'}/>
         <p><a href='https://github.com/kendyhiga/calculadora' target='_blank' rel='noopener noreferrer'>[Link do Repositório]</a></p>
         <span>Este projeto em React consiste
           numa calculadora, que foi criada a partir do curso da
