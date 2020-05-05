@@ -7,10 +7,6 @@ body{
   color: #E0E0E0;
 }
 
-.jumbotron-custom {
-  height: 12rem;
-}
-
 .animated {
   -webkit-transition: all 1s ease;
   -o-transition: all 1s ease;
@@ -72,6 +68,10 @@ body{
   height: auto;
 }
 
+.text-title {
+  padding: 1rem;
+}
+
 .overlay {
   text-align: left;
   position: absolute;
@@ -81,8 +81,8 @@ body{
   background-color: #303040;
   overflow: hidden;
   width: 0;
-  height: 100%;
-  transition: .5s ease;
+  height: auto;
+  transition: .2s ease;
 }
 
 .container-card:hover .overlay {
@@ -110,8 +110,8 @@ body{
   background-color: #303040;
   overflow: hidden;
   width: 0;
-  height: 100%;
-  transition: .5s ease;
+  height: auto;
+  transition: .2s ease;
 }
 
 .card-text {

@@ -39,14 +39,19 @@ function AlphaBlog() {
           <div className="container-card">
             <div className="main-title"><h1>Recursos:</h1></div>
             <div className="overlay">
-              <div className="text">
-                <ul>
-                  <h5>
-                    <li>Cadastro e login</li>
-                    <li>Edição do perfil</li>
-                    <li>Criação, edição e exclusão de artigos</li>
-                  </h5>
-                </ul>
+              <div className="row">
+                <div className='d-none d-sm-block col-2'>
+                  <h1 className='text-title'>Recursos:</h1>
+                </div>
+                <div className='col-10'>
+                  <ul>
+                    <h5>
+                      <li>Cadastro e login</li>
+                      <li>Edição do perfil</li>
+                      <li>Criação, edição e exclusão de artigos</li>
+                    </h5>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -54,16 +59,21 @@ function AlphaBlog() {
         <hr></hr>
         <div className='row'>
           <div className="container-card-left float-right">
-            <div className="main-title"><h1>Ferramentas utilizadas:</h1></div>
+            <div className="main-title"><h1>Ferramentas:</h1></div>
             <div className="overlay-left">
-              <div className="text">
-                <ul>
-                  <h5>
-                    <li>Bootstrap para o layout</li>
-                    <li>Devise para autenticação</li>
-                    <li>Gravatar para pegar o avatar</li>
-                  </h5>
-                </ul>
+            <div className="row">
+                <div className='d-none d-sm-block col-2'>
+                  <h1 className='text-title'>Ferramentas:</h1>
+                </div>
+                <div className='col-10'>
+                  <ul>
+                    <h5>
+                      <li>Bootstrap para o layout</li>
+                      <li>Devise para autenticação</li>
+                      <li>Gravatar para pegar o avatar</li>
+                    </h5>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
