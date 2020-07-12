@@ -57,7 +57,7 @@ body{
 }
 
 .container-card {
-  height: 5rem;
+  height: auto;
   position: relative;
   width: 100%;
 }
@@ -91,7 +91,7 @@ body{
 }
 
 .container-card-left {
-  height: 5rem;
+  height: auto;
   position: relative;
   width: 100%;
 }
@@ -116,7 +116,6 @@ body{
 
 .card-text {
   color: white;
-  font-size: 20px;
   position: absolute;
   top: 50%;
   left: 50%;

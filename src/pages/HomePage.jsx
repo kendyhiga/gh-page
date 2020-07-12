@@ -12,7 +12,7 @@ export default class HomePage extends Component {
       { language: 'ruby', link: '/alpha-blog', name: 'Alpha Blog' },
       { language: 'react', link: '/calculator', name: 'Calculadora' },
       { language: 'ruby', link: '/cookbook', name: 'Cookbook' },
-      { language: 'ruby', link: '/shoutr', name: 'Shoutr' },
+      { language: 'ruby', link: '/shoutr', name: 'Shoutr' }
     ]
     this.state = {
       cards: cards,
