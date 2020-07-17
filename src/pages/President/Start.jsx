@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Redirect } from 'react-router';
 import firebase from '../../firebaseConfig'
-import JumbotronSmall from '../JumbotronSmall'
 
-class President extends Component {
+class Start extends Component {
   constructor() {
     super();
+    debugger
     this.state = {
-      intro: 10
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -38,32 +36,17 @@ class President extends Component {
   }
 
   render() {
-    const gameStart = this.state.gameStart;
-    if (gameStart === true) {
-      return <Redirect to={{
-        pathname: "/president-start",
-        state: { gameID: this.state.gameID }
-       }} />
-    }
     return (
       <div>
         <div className='container'>
-          <JumbotronSmall name={'Presidente'}/>
-          <h1>{this.state.intro}</h1>
           <h1>Game ID: {this.state.gameID}</h1>
+          <h1>Game ID: {this.props.location.state.gameID}</h1>
           <br></br>
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              Nome:
-              <input type="text" value={this.state.name} onChange={this.handleChange} />
-            </label>
-            <input type="submit" value="Entrar" />
-          </form>
-          <h4><Link to='/'>Voltar</Link></h4>
+          <h4><Link to='/president'>Voltar</Link></h4>
         </div>
       </div>
     );
   }
 }
 
-export default President;
+export default Start;

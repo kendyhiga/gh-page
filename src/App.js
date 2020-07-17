@@ -13,6 +13,7 @@ import Challenge from './pages/Challenge/Challenge';
 import ChallengeMe from './pages/Challenge/ChallengeMe';
 import ChallengePc from './pages/Challenge/ChallengePc';
 import President from './pages/President/Main';
+import PresidentStart from './pages/President/Start';
 
 class App extends Component {
   render() {
@@ -28,6 +29,7 @@ class App extends Component {
           <Route path="/challenge_me" component={ChallengeMe} />
           <Route path="/challenge_pc" component={ChallengePc} />
           <Route path="/president" component={President} />
+          <Route path="/president-start" component={PresidentStart} />
         </HashRouter>
       </div>
     );
