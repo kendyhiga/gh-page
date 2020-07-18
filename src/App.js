@@ -13,7 +13,8 @@ import Challenge from './pages/Challenge/Challenge';
 import ChallengeMe from './pages/Challenge/ChallengeMe';
 import ChallengePc from './pages/Challenge/ChallengePc';
 import President from './pages/President/Main';
-import PresidentStart from './pages/President/Start';
+import PresidentRoom from './pages/President/Room';
+import PresidentGame from './pages/President/Game';
 
 class App extends Component {
   render() {
@@ -28,8 +29,9 @@ class App extends Component {
           <Route path="/challenge" component={Challenge} />
           <Route path="/challenge_me" component={ChallengeMe} />
           <Route path="/challenge_pc" component={ChallengePc} />
-          <Route path="/president" component={President} />
-          <Route path="/president-start" component={PresidentStart} />
+          <Route exact path="/president" component={President} />
+          <Route exact path="/president/room" component={PresidentRoom} />
+          <Route exact path="/president/game" component={PresidentGame} />
         </HashRouter>
       </div>
     );
