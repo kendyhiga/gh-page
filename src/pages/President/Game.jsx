@@ -1,6 +1,62 @@
 import React, { Component } from 'react';
-import JumbotronSmall from '../JumbotronSmall'
-import firebase from '../../firebaseConfig'
+import firebase from '../../firebaseConfig';
+import { render } from 'react-dom';
+import { ReactComponent as C01 } from './SVG-cards/01-C.svg';
+import { ReactComponent as C02 } from './SVG-cards/02-C.svg';
+import { ReactComponent as C03 } from './SVG-cards/03-C.svg';
+import { ReactComponent as C04 } from './SVG-cards/04-C.svg';
+import { ReactComponent as C05 } from './SVG-cards/05-C.svg';
+import { ReactComponent as C06 } from './SVG-cards/06-C.svg';
+import { ReactComponent as C07 } from './SVG-cards/07-C.svg';
+import { ReactComponent as C08 } from './SVG-cards/08-C.svg';
+import { ReactComponent as C09 } from './SVG-cards/09-C.svg';
+import { ReactComponent as C10 } from './SVG-cards/10-C.svg';
+import { ReactComponent as C11 } from './SVG-cards/11-C.svg';
+import { ReactComponent as C12 } from './SVG-cards/12-C.svg';
+import { ReactComponent as C13 } from './SVG-cards/13-C.svg';
+
+import { ReactComponent as D01 } from './SVG-cards/01-D.svg';
+import { ReactComponent as D02 } from './SVG-cards/02-D.svg';
+import { ReactComponent as D03 } from './SVG-cards/03-D.svg';
+import { ReactComponent as D04 } from './SVG-cards/04-D.svg';
+import { ReactComponent as D05 } from './SVG-cards/05-D.svg';
+import { ReactComponent as D06 } from './SVG-cards/06-D.svg';
+import { ReactComponent as D07 } from './SVG-cards/07-D.svg';
+import { ReactComponent as D08 } from './SVG-cards/08-D.svg';
+import { ReactComponent as D09 } from './SVG-cards/09-D.svg';
+import { ReactComponent as D10 } from './SVG-cards/10-D.svg';
+import { ReactComponent as D11 } from './SVG-cards/11-D.svg';
+import { ReactComponent as D12 } from './SVG-cards/12-D.svg';
+import { ReactComponent as D13 } from './SVG-cards/13-D.svg';
+
+import { ReactComponent as H01 } from './SVG-cards/01-H.svg';
+import { ReactComponent as H02 } from './SVG-cards/02-H.svg';
+import { ReactComponent as H03 } from './SVG-cards/03-H.svg';
+import { ReactComponent as H04 } from './SVG-cards/04-H.svg';
+import { ReactComponent as H05 } from './SVG-cards/05-H.svg';
+import { ReactComponent as H06 } from './SVG-cards/06-H.svg';
+import { ReactComponent as H07 } from './SVG-cards/07-H.svg';
+import { ReactComponent as H08 } from './SVG-cards/08-H.svg';
+import { ReactComponent as H09 } from './SVG-cards/09-H.svg';
+import { ReactComponent as H10 } from './SVG-cards/10-H.svg';
+import { ReactComponent as H11 } from './SVG-cards/11-H.svg';
+import { ReactComponent as H12 } from './SVG-cards/12-H.svg';
+import { ReactComponent as H13 } from './SVG-cards/13-H.svg';
+
+import { ReactComponent as S01 } from './SVG-cards/01-S.svg';
+import { ReactComponent as S02 } from './SVG-cards/02-S.svg';
+import { ReactComponent as S03 } from './SVG-cards/03-S.svg';
+import { ReactComponent as S04 } from './SVG-cards/04-S.svg';
+import { ReactComponent as S05 } from './SVG-cards/05-S.svg';
+import { ReactComponent as S06 } from './SVG-cards/06-S.svg';
+import { ReactComponent as S07 } from './SVG-cards/07-S.svg';
+import { ReactComponent as S08 } from './SVG-cards/08-S.svg';
+import { ReactComponent as S09 } from './SVG-cards/09-S.svg';
+import { ReactComponent as S10 } from './SVG-cards/10-S.svg';
+import { ReactComponent as S11 } from './SVG-cards/11-S.svg';
+import { ReactComponent as S12 } from './SVG-cards/12-S.svg';
+import { ReactComponent as S13 } from './SVG-cards/13-S.svg';
+
 
 class Game extends Component {
   constructor() {
@@ -54,6 +110,7 @@ class Game extends Component {
     }
     return (
       <div className='container'>
+        <C01></C01>
         <h1>GAME</h1>
         <h2>shuffled deck: {this.state.shuffledDECK.join(', ')}</h2>
         <br></br>
