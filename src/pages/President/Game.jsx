@@ -87,7 +87,8 @@ class Game extends Component {
     this.state = {
       shuffledDECK: shuffledDECK,
       player1Hand: player1Hand,
-      player2Hand: player2Hand
+      selectedOption: 1,
+      flashMessage: ''
     };
   };
 
@@ -112,6 +113,26 @@ class Game extends Component {
     }
   };
 
+  selectedOption = option => {
+    let className = 'btn btn-secondary btn-custom'
+    if (option === this.state.selectedOption) {
+      className += ' selected'
+    }
+    return className
+  }
+
+  playCard = value => {
+    let cardsToRemove = this.state.player1Hand.filter(card => card.value === value)
+    let selectedCardLength = cardsToRemove.length
+    if (selectedCardLength >= this.state.selectedOption) {
+      cardsToRemove = cardsToRemove.slice(0, this.state.selectedOption)
+      this.setState({player1Hand: this.state.player1Hand.filter(card => !cardsToRemove.includes(card)),
+                     flashMessage: ''})
+    } else {
+      this.setState({flashMessage: `Você precisa ter ${this.state.selectedOption} desta carta para poder descartar`})
+    }
+  }
+
   componentDidMount(){
   };
   render() {
@@ -129,28 +150,38 @@ class Game extends Component {
         <h1>President</h1>
         <br></br>
         <div className='btn-group' role='group'>
-          <button className='btn btn-secondary btn-custom' onClick={() => console.log('Quatro')}>Quatro</button>
-          <button className='btn btn-secondary btn-custom' onClick={() => console.log('Três')}>Três</button>
-          <button className='btn btn-secondary btn-custom' onClick={() => console.log('Par')}>Par</button>
-          <button className='btn btn-secondary btn-custom' onClick={() => console.log('Uma')}>Uma</button>
+          <button className={this.selectedOption(4)}
+                  onClick={() => this.setState({selectedOption: 4})}>Quadra</button>
+          <button className={this.selectedOption(3)}
+                  onClick={() => this.setState({selectedOption: 3})}>Trinca</button>
+          <button className={this.selectedOption(2)}
+                  onClick={() => this.setState({selectedOption: 2})}>Par</button>
+          <button className={this.selectedOption(1)}
+                  onClick={() => this.setState({selectedOption: 1})}>Uma</button>
         </div>
         <div className='deck-hand'>
           {this.state.player1Hand.map((card, index) =>
             <img src={card.svg}
                  alt={`card-${card.name}`}
-                 style={{height: "120px", marginLeft: "-60px", marginTop: `${this.shouldHightlight(card.value)}` }}
+                 style={{height: "120px",
+                         marginLeft: "-60px",
+                         marginTop: `${this.shouldHightlight(card.value)}` }}
                  className='deck-card'
                  onMouseEnter={() => this.setState({highlightedCard: card.value})}
                  onMouseLeave={() => this.setState({highlightedCard: ''})}
+                 onClick={() => this.playCard(card.value)}
             />
           )}
         </div>
-        <div className='btn btn-dark button' onClick={() => sortHand(1, this.state.player1Hand)}>
-          Ordenar mão
-        </div>
-
-        <div className='btn btn-dark button' onClick={() => console.log('Passar a vez')}>
-          Passar a vez
+        {this.state.flashMessage &&
+          <div className='alert alert-danger flash-message'>{this.state.flashMessage}</div>}
+        <div className='row action-buttons'>
+          <div className='btn btn-dark button' onClick={() => sortHand(1, this.state.player1Hand)}>
+            Ordenar mão
+          </div>
+          <div className='btn btn-dark button' onClick={() => console.log('Passar a vez')}>
+            Passar a vez
+          </div>
         </div>
       </div>
     );

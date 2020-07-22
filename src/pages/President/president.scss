@@ -8,3 +8,18 @@
 .button {
   margin-left: 25px
 }
+
+.selected {
+  color: white;
+  background-color: #5A6368;
+  border-color: #5A6368;
+  transform: scale(1.1);
+}
+
+.alert {
+  display: inline-block;
+}
+
+.action-buttons {
+  display: block;
+}
