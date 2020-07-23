@@ -87,6 +87,7 @@ class Game extends Component {
     this.state = {
       shuffledDECK: shuffledDECK,
       player1Hand: player1Hand,
+      discardPile: [],
       selectedOption: 1,
       flashMessage: ''
     };
@@ -127,7 +128,9 @@ class Game extends Component {
     if (selectedCardLength >= this.state.selectedOption) {
       cardsToRemove = cardsToRemove.slice(0, this.state.selectedOption)
       this.setState({player1Hand: this.state.player1Hand.filter(card => !cardsToRemove.includes(card)),
-                     flashMessage: ''})
+                     flashMessage: '',
+                     discardPile: this.state.discardPile.concat(cardsToRemove)})
+      console.log(cardsToRemove)
     } else {
       this.setState({flashMessage: `Você precisa ter ${this.state.selectedOption} desta carta para poder descartar`})
     }
@@ -149,6 +152,17 @@ class Game extends Component {
       <div className=''>
         <h1>President</h1>
         <br></br>
+        <div className='deck-hand'>
+          {this.state.discardPile.map((card, index) =>
+            <img src={card.svg}
+                 alt={`card-${card.name}`}
+                 style={{height: "120px",
+                         marginLeft: "-60px"}}
+                 className='deck-card'
+            />
+          )}
+        </div>
+
         <div className='btn-group' role='group'>
           <button className={this.selectedOption(4)}
                   onClick={() => this.setState({selectedOption: 4})}>Quadra</button>
