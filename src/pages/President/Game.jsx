@@ -86,10 +86,16 @@ class Game extends Component {
 
     this.state = {
       shuffledDECK: shuffledDECK,
+      player1Name: 'teste',
       player1Hand: player1Hand,
       discardPile: [],
+      lastDiscarded: [{value: 0}],
       selectedOption: 1,
-      flashMessage: ''
+      flashMessage: '',
+      newRound: true,
+      roomID: 8006,
+      playersInTheRoom: 1,
+      consecutiveSkips: 0
     };
   };
 
@@ -114,6 +120,13 @@ class Game extends Component {
     }
   };
 
+  canStartNewRound = amount => {
+    if (this.state.newRound) {
+      this.setState({selectedOption: amount,
+                     newRound: false})
+    }
+  }
+
   selectedOption = option => {
     let className = 'btn btn-secondary btn-custom'
     if (option === this.state.selectedOption) {
@@ -122,17 +135,31 @@ class Game extends Component {
     return className
   }
 
+  skipTurn = () => {
+    this.setState({consecutiveSkips: this.state.consecutiveSkips + 1})
+    if (this.state.consecutiveSkips >= this.state.playersInTheRoom) {
+      this.setState({lastDiscarded: [{value: 0}],
+                    discardPile: [],
+                    newRound: true,
+                    flashMessage: ''})
+    }
+  }
+
   playCard = value => {
     let cardsToRemove = this.state.player1Hand.filter(card => card.value === value)
     let selectedCardLength = cardsToRemove.length
-    if (selectedCardLength >= this.state.selectedOption) {
+    if ((selectedCardLength >= this.state.selectedOption) && (value > this.state.lastDiscarded[0].value)) {
       cardsToRemove = cardsToRemove.slice(0, this.state.selectedOption)
       this.setState({player1Hand: this.state.player1Hand.filter(card => !cardsToRemove.includes(card)),
                      flashMessage: '',
-                     discardPile: this.state.discardPile.concat(cardsToRemove)})
-      console.log(cardsToRemove)
+                     discardPile: this.state.discardPile.concat(cardsToRemove),
+                     lastDiscarded: cardsToRemove})
+    } else if (selectedCardLength >= this.state.selectedOption) {
+      this.setState({flashMessage: `Você precisa escolher uma carta mais alta do que a ultima descartada,
+                                    a ordem, da mais fraca para a mais forte é:
+                                    2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A`})
     } else {
-      this.setState({flashMessage: `Você precisa ter ${this.state.selectedOption} desta carta para poder descartar`})
+      this.setState({flashMessage: `Você precisa ter ${this.state.selectedOption} desta carta para poder descarta-la(s)`})
     }
   }
 
@@ -153,7 +180,8 @@ class Game extends Component {
         <h1>President</h1>
         <br></br>
         <div className='deck-hand'>
-          {this.state.discardPile.map((card, index) =>
+          {this.state.lastDiscarded[0].value !== 0 &&
+          this.state.lastDiscarded.map((card, index) =>
             <img src={card.svg}
                  alt={`card-${card.name}`}
                  style={{height: "120px",
@@ -165,15 +193,17 @@ class Game extends Component {
 
         <div className='btn-group' role='group'>
           <button className={this.selectedOption(4)}
-                  onClick={() => this.setState({selectedOption: 4})}>Quadra</button>
+                  onClick={() => this.canStartNewRound(4)}>Quadra</button>
           <button className={this.selectedOption(3)}
-                  onClick={() => this.setState({selectedOption: 3})}>Trinca</button>
+                  onClick={() => this.canStartNewRound(3)}>Trinca</button>
           <button className={this.selectedOption(2)}
-                  onClick={() => this.setState({selectedOption: 2})}>Par</button>
+                  onClick={() => this.canStartNewRound(2)}>Par</button>
           <button className={this.selectedOption(1)}
-                  onClick={() => this.setState({selectedOption: 1})}>Uma</button>
+                  onClick={() => this.canStartNewRound(1)}>Uma</button>
         </div>
+
         <div className='deck-hand'>
+        <h4>{this.state.player1Name}</h4>
           {this.state.player1Hand.map((card, index) =>
             <img src={card.svg}
                  alt={`card-${card.name}`}
@@ -187,13 +217,15 @@ class Game extends Component {
             />
           )}
         </div>
+
         {this.state.flashMessage &&
-          <div className='alert alert-danger flash-message'>{this.state.flashMessage}</div>}
+          <div className='alert alert-danger flash-message col-4'>{this.state.flashMessage}</div>}
+
         <div className='row action-buttons'>
           <div className='btn btn-dark button' onClick={() => sortHand(1, this.state.player1Hand)}>
             Ordenar mão
           </div>
-          <div className='btn btn-dark button' onClick={() => console.log('Passar a vez')}>
+          <div className='btn btn-dark button' onClick={() => this.skipTurn()}>
             Passar a vez
           </div>
         </div>
