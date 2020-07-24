@@ -17,8 +17,7 @@
     "react-image-gallery": "^1.0.7",
     "react-images": "^1.1.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1",
-    "react-svg": "^11.0.31"
+    "react-scripts": "3.4.1"
   },
   "scripts": {
     "start": "react-scripts start",

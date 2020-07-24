@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import firebase from '../../firebaseConfig';
-import { ReactSVG } from 'react-svg'
 import './president.scss'
 
 import CARD_A_C from './SVG-cards/C01.svg';
@@ -137,11 +136,12 @@ class Game extends Component {
 
   skipTurn = () => {
     this.setState({consecutiveSkips: this.state.consecutiveSkips + 1})
-    if (this.state.consecutiveSkips >= this.state.playersInTheRoom) {
+    if (this.state.consecutiveSkips === this.state.playersInTheRoom) {
       this.setState({lastDiscarded: [{value: 0}],
                     discardPile: [],
                     newRound: true,
-                    flashMessage: ''})
+                    flashMessage: '',
+                    consecutiveSkips: 0})
     }
   }
 
