@@ -183,6 +183,7 @@ class Game extends Component {
           {this.state.lastDiscarded[0].value !== 0 &&
           this.state.lastDiscarded.map((card, index) =>
             <img src={card.svg}
+                 key={index}
                  alt={`card-${card.name}`}
                  style={{height: "120px",
                          marginLeft: "-60px"}}
@@ -207,6 +208,7 @@ class Game extends Component {
           {this.state.player1Hand.map((card, index) =>
             <img src={card.svg}
                  alt={`card-${card.name}`}
+                 key={index}
                  style={{height: "120px",
                          marginLeft: "-60px",
                          marginTop: `${this.shouldHightlight(card.value)}` }}
