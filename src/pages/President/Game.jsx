@@ -154,6 +154,7 @@ class Game extends Component {
                      flashMessage: '',
                      discardPile: this.state.discardPile.concat(cardsToRemove),
                      lastDiscarded: cardsToRemove})
+      firebase.database().ref(`${this.state.roomID}`).set({'lastDiscarded': cardsToRemove});
     } else if (selectedCardLength >= this.state.selectedOption) {
       this.setState({flashMessage: `Você precisa escolher uma carta mais alta do que a ultima descartada,
                                     a ordem, da mais fraca para a mais forte é:
@@ -164,7 +165,15 @@ class Game extends Component {
   }
 
   componentDidMount(){
+    const rootRef = firebase.database().ref();
+    const lastDiscardedRef = rootRef.child(`${this.state.roomID}/lastDiscarded`);
+    lastDiscardedRef.on('value', snap => {
+      this.setState({
+        lastDiscarded: snap.val()
+      })
+    })
   };
+
   render() {
     const sortHand = (player, hand) => {
       if (this.state.sorted) {
