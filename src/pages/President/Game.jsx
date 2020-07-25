@@ -61,7 +61,7 @@ class Game extends Component {
     if (this.state.cardsDealt) {
       const rootRef = firebase.database().ref();
       const cardsDealtRef = rootRef.child(`${this.state.roomID}/playersEntered/${this.state.name}/hand`);
-      cardsDealtRef.on('value', snap => {
+      cardsDealtRef.once('value', snap => {
         this.setState({
           player1Hand: snap.val(),
           cardsDealt: true,
@@ -75,10 +75,8 @@ class Game extends Component {
       player2Hand = shuffledDECK.slice(26, 52)
       this.setState({
         player1Hand: player1Hand,
-        player2Hand: player2Hand,
-        cardsDealt: true,
+        cardsDealt: false,
         started: true
-
       })
       firebase.database().ref(`${this.state.roomID}/cardsDealt`).set(true);
       firebase.database().ref(`${this.state.roomID}/playersEntered/${this.state.playersEntered[0].name}/hand`).set(player1Hand);
@@ -107,18 +105,6 @@ class Game extends Component {
     }
   }
 
-  // Game logic
-  canStartNewRound = amount => {
-    if (this.state.newRound) {
-      this.setState({selectedOption: amount,
-                     newRound: false})
-    }
-  }
-
-  nextPlayer = lastPlayerName => {
-    console.log(this.state.player1Name)
-  }
-
   playCard = value => {
     let cardsToRemove = this.state.player1Hand.filter(card => card.value === value)
     let selectedCardLength = cardsToRemove.length
@@ -141,6 +127,18 @@ class Game extends Component {
     } else {
       this.setState({flashMessage: `Você precisa ter ${this.state.selectedOption} desta carta para poder descarta-la(s)`})
     }
+  }
+
+  // Game logic
+  canStartNewRound = amount => {
+    if (this.state.newRound) {
+      this.setState({selectedOption: amount,
+                     newRound: false})
+    }
+  }
+
+  nextPlayer = lastPlayerName => {
+    console.log(this.state.player1Name)
   }
 
   componentDidMount(){
