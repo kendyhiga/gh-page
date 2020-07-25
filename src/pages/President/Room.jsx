@@ -44,7 +44,8 @@ class Room extends Component {
       gameStartButton =
         <Link to={{ pathname: '/president/game',
                 state: { name: this.state.name,
-                         roomID: this.state.roomID }}}>
+                         roomID: this.state.roomID,
+                         players: this.state.players }}}>
           <div className="card bg-dark">
             <h1>Iniciar partida</h1>
           </div>
