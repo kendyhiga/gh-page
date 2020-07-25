@@ -8,18 +8,35 @@ class Room extends Component {
     super();
     this.state = { players: [] };
   }
-    componentDidMount(){
-    const rootRef = firebase.database().ref().child(this.props.location.state.roomID);
-    rootRef.on('value', snap => {
-      this.setState({ players: Object.keys(snap.val()) })
+  componentDidMount(){
+    let persistedName = localStorage.getItem('@gh-page/name');
+    let persistedRoomID = localStorage.getItem('@gh-page/roomID');
+    let persistedToken = localStorage.getItem('@gh-page/token');
+    if (persistedName && persistedRoomID && persistedToken) {
+      console.log('all set to go!')
+    } else {
+      persistedName = this.props.location.state.name
+      persistedRoomID = this.props.location.state.roomID
+      persistedToken = Math.ceil(Math.random() * (10000 - 1))
+      localStorage.setItem('@gh-page/name', persistedName)
+      localStorage.setItem('@gh-page/roomID', persistedRoomID)
+      localStorage.setItem('@gh-page/token', persistedToken)
+    }
+    this.setState({
+      name: persistedName,
+      roomID: persistedRoomID,
+      token: persistedToken,
+      players: [this.state.players.concat(persistedName)]
     });
-      this.setState({
-        name: this.props.location.state.name,
-        roomID: this.props.location.state.roomID,
-        players: [this.props.location.state.name]
+    const playersRef = firebase.database().ref().child(`${persistedRoomID}/players`);
+    playersRef.on('value', snap => {
+      if (snap.val()) {
+        this.setState({ players: Object.values(snap.val()) })
+      }
     });
-    firebase.database().ref(`${this.props.location.state.roomID}/${this.props.location.state.name}`).set({'hand': ['AH', '3H', 'JH']});
+    firebase.database().ref(`${persistedRoomID}/players/${persistedToken}/`).set(persistedName);
   }
+
   render() {
     var amountOfPlayers = this.state.players.length;
     let gameStartButton
@@ -27,8 +44,7 @@ class Room extends Component {
       gameStartButton =
         <Link to={{ pathname: '/president/game',
                 state: { name: this.state.name,
-                         roomID: this.state.roomID,
-                         players: this.state.players }}}>
+                         roomID: this.state.roomID }}}>
           <div className="card bg-dark">
             <h1>Iniciar partida</h1>
           </div>

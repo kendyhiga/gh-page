@@ -92,9 +92,11 @@ class Game extends Component {
       selectedOption: 1,
       flashMessage: '',
       newRound: true,
-      roomID: 8006,
+      roomID: 1,
       playersInTheRoom: 1,
-      consecutiveSkips: 0
+      consecutiveSkips: 0,
+      whichPlayerTurn: '',
+      playerNames: []
     };
   };
 
@@ -145,16 +147,25 @@ class Game extends Component {
     }
   }
 
+  nextPlayer = lastPlayerName => {
+    console.log(this.state.player1Name)
+  }
+
   playCard = value => {
     let cardsToRemove = this.state.player1Hand.filter(card => card.value === value)
     let selectedCardLength = cardsToRemove.length
-    if ((selectedCardLength >= this.state.selectedOption) && (value > this.state.lastDiscarded[0].value)) {
+    if ((selectedCardLength >= this.state.selectedOption) &&
+        (value > this.state.lastDiscarded[0].value) &&
+        // (this.state.whichPlayerTurn)) {
+        (true)) {
       cardsToRemove = cardsToRemove.slice(0, this.state.selectedOption)
       this.setState({player1Hand: this.state.player1Hand.filter(card => !cardsToRemove.includes(card)),
                      flashMessage: '',
                      discardPile: this.state.discardPile.concat(cardsToRemove),
                      lastDiscarded: cardsToRemove})
       firebase.database().ref(`${this.state.roomID}`).set({'lastDiscarded': cardsToRemove});
+    } else if (this.state.whichPlayerTurn !== this.state.player1Name) {
+      this.setState({flashMessage: `Espere a sua vez`})
     } else if (selectedCardLength >= this.state.selectedOption) {
       this.setState({flashMessage: `Você precisa escolher uma carta mais alta do que a ultima descartada,
                                     a ordem, da mais fraca para a mais forte é:
@@ -165,11 +176,17 @@ class Game extends Component {
   }
 
   componentDidMount(){
+    let playerNames = this.state.playerNames.concat(this.state.player1Name)
+    firebase.database().ref(`${this.state.roomID}`).set({
+      'lastDiscarded': [{value: 0}],
+      'nameList': playerNames
+    });
     const rootRef = firebase.database().ref();
     const lastDiscardedRef = rootRef.child(`${this.state.roomID}/lastDiscarded`);
     lastDiscardedRef.on('value', snap => {
       this.setState({
-        lastDiscarded: snap.val()
+        lastDiscarded: snap.val(),
+        nameList: playerNames
       })
     })
   };
