@@ -235,7 +235,7 @@ class Game extends Component {
         )}</h1> */}
         <h1>President</h1>
         <br></br>
-        <div className='deck-hand'>
+        <div className='deck-discard'>
           {this.state.lastDiscarded[0].value !== 0 &&
           this.state.lastDiscarded.map((card, index) =>
             <img src={card.svg}
@@ -275,9 +275,6 @@ class Game extends Component {
           )}
         </div>
 
-        {this.state.flashMessage &&
-          <div className='alert alert-danger flash-message col-4'>{this.state.flashMessage}</div>}
-
           { this.state.started &&
           <div className='row action-buttons'>
             <div className='btn btn-dark button' onClick={() => this.sortHand(1, this.state.player1Hand)}>
@@ -294,6 +291,9 @@ class Game extends Component {
             </div>
           </div>
           }
+
+          { this.state.flashMessage &&
+            <div className='alert alert-danger flash-message col-4'>{this.state.flashMessage}</div>}
       </div>
     );
   }

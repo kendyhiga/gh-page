@@ -1,5 +1,15 @@
+.deck-discard {
+  margin: 25px;
+  min-height: 120px;
+  background-color: #333333;
+  top: 50%;
+}
+
 .deck-hand {
   margin: 25px;
+  min-height: 156px;
+  background-color: #333333;
+  top: 50%;
 }
 
 .deck-card {
@@ -22,4 +32,8 @@
 
 .action-buttons {
   display: block;
+}
+
+.flash-message {
+  margin-top: 15px;
 }
