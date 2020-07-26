@@ -23,7 +23,8 @@ class Game extends Component {
       nameList: [],
       playersEntered: [],
       started: false,
-      cardsDealt: false
+      cardsDealt: false,
+      scoreBoard: {}
     };
   };
 
@@ -68,6 +69,7 @@ class Game extends Component {
           started: true
         })
       })
+      this.updateScoreBoard()
     } else {
       var shuffledDECK, player1Hand, player2Hand;
       shuffledDECK = this.shuffle(DECK)
@@ -81,6 +83,7 @@ class Game extends Component {
       firebase.database().ref(`${this.state.roomID}/cardsDealt`).set(true);
       firebase.database().ref(`${this.state.roomID}/playersEntered/${this.state.nameList[0].name}/hand`).set(player1Hand);
       firebase.database().ref(`${this.state.roomID}/playersEntered/${this.state.nameList[1].name}/hand`).set(player2Hand);
+      this.updateScoreBoard()
     }
   };
 
@@ -111,7 +114,7 @@ class Game extends Component {
     let selectedCardLength = cardsToRemove.length
     if ((selectedCardLength >= this.state.selectedOption) &&
         (value > this.state.lastDiscarded[0].value) &&
-        (this.state.whichPlayerTurn)) {
+        (this.state.whichPlayerTurn === this.state.player1Name)) {
       this.setNextPlayerTurn(this.state.player1Name)
       cardsToRemove = cardsToRemove.slice(0, this.state.selectedOption)
       this.setState({player1Hand: this.state.player1Hand.filter(card => !cardsToRemove.includes(card)),
@@ -119,6 +122,13 @@ class Game extends Component {
                      discardPile: this.state.discardPile.concat(cardsToRemove),
                      lastDiscarded: cardsToRemove})
       firebase.database().ref(`${this.state.roomID}`).update({'lastDiscarded': cardsToRemove});
+      firebase.database().ref(`${this.state.roomID}/playersEntered/${this.state.player1Name}/`).update({hand: this.state.player1Hand});
+      this.updateScoreBoard()
+      if (value === 14) {
+        this.setState({
+
+        })
+      }
     }
     else if (this.state.whichPlayerTurn !== this.state.player1Name) {
       this.setState({flashMessage: `Espere a sua vez`})
@@ -135,23 +145,13 @@ class Game extends Component {
 
   // Game logic
   canStartNewRound = amount => {
-    if (this.state.newRound) {
+    if (this.state.lastDiscarded === [{value: 0}]) {
       this.setState({selectedOption: amount,
                      newRound: false})
     }
   }
 
-  nextPlayer = lastPlayerName => {
-    console.log(this.state.player1Name)
-  }
-
   setFirstPlayerTurn = () => {
-    const whichPlayerTurnRef = firebase.database().ref().child(`${this.state.roomID}/whichPlayerTurn`);
-    whichPlayerTurnRef.once('value', snap => {
-      if (snap.val()) {
-        this.setState({ whichPlayerTurn: Object.values(snap.val()) })
-      }
-    });
     if (this.state.whichPlayerTurn === '') {
       firebase.database().ref(`${this.state.roomID}`).update({'whichPlayerTurn': this.state.nameList[0].name});
       this.setState({whichPlayerTurn: this.state.nameList[0].name})
@@ -159,12 +159,6 @@ class Game extends Component {
   }
 
   setNextPlayerTurn = name => {
-    const whichPlayerTurnRef = firebase.database().ref().child(`${this.state.roomID}/whichPlayerTurn`);
-    whichPlayerTurnRef.once('value', snap => {
-      if (snap.val()) {
-        this.setState({ whichPlayerTurn: Object.values(snap.val()) })
-      }
-    });
     if (name === this.state.nameList[0].name) {
       firebase.database().ref(`${this.state.roomID}`).update({'whichPlayerTurn': this.state.nameList[1].name});
       this.setState({whichPlayerTurn: this.state.nameList[1].name})
@@ -172,6 +166,18 @@ class Game extends Component {
     else if (name === this.state.nameList[1].name) {
       firebase.database().ref(`${this.state.roomID}`).update({'whichPlayerTurn': this.state.nameList[0].name});
       this.setState({whichPlayerTurn: this.state.nameList[0].name})
+    }
+  }
+
+  updateScoreBoard = () => {
+    for (var i = this.state.nameList.length - 1; i > 0; i--) {
+      const rootRef = firebase.database().ref();
+      const scoreBoardRef = rootRef.child(`${this.state.roomID}/playersEntered/${this.state.player1Name}/hand`);      
+      let handSize = 0  
+      scoreBoardRef.once('value', snap => {
+        handSize = snap.val().length
+        firebase.database().ref(`${this.state.roomID}/playersEntered/${this.state.player1Name}/`).update({'handSize': handSize});
+      })
     }
   }
 
@@ -202,19 +208,31 @@ class Game extends Component {
       this.setState({
         cardsDealt: snap.val()
       })
-    })
+    });
+
     const lastDiscardedRef = rootRef.child(`${persistedRoomID}/lastDiscarded`);
     lastDiscardedRef.on('value', snap => {
       this.setState({
         lastDiscarded: snap.val(),
         playersEntered: nameList
       })
-    })
+    });
+
+    const whichPlayerTurnRef = firebase.database().ref().child(`${this.state.roomID}/whichPlayerTurn`);
+    whichPlayerTurnRef.on('value', snap => {
+      if (snap.val()) {
+        this.setState({ whichPlayerTurn: snap.val() })
+      }
+    });
   };
 
   render() {
     return (
       <div className=''>
+        {/* <h1>{this.state.scoreBoard &&
+          this.state.scoreBoard.map((score, index) =>
+          <span>{score}</span>
+        )}</h1> */}
         <h1>President</h1>
         <br></br>
         <div className='deck-hand'>
