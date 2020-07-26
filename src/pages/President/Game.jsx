@@ -9,7 +9,7 @@ class Game extends Component {
 
     this.state = {
       shuffledDECK: [],
-      player1Name: 'teste',
+      player1Name: '',
       player1Hand: [],
       discardPile: [],
       lastDiscarded: [{value: 0}],
@@ -60,7 +60,7 @@ class Game extends Component {
   dealCards = () => {
     if (this.state.cardsDealt) {
       const rootRef = firebase.database().ref();
-      const cardsDealtRef = rootRef.child(`${this.state.roomID}/playersEntered/${this.state.name}/hand`);
+      const cardsDealtRef = rootRef.child(`${this.state.roomID}/playersEntered/${this.state.player1Name}/hand`);
       cardsDealtRef.once('value', snap => {
         this.setState({
           player1Hand: snap.val(),
@@ -79,8 +79,8 @@ class Game extends Component {
         started: true
       })
       firebase.database().ref(`${this.state.roomID}/cardsDealt`).set(true);
-      firebase.database().ref(`${this.state.roomID}/playersEntered/${this.state.playersEntered[0].name}/hand`).set(player1Hand);
-      firebase.database().ref(`${this.state.roomID}/playersEntered/${this.state.playersEntered[1].name}/hand`).set(player2Hand);
+      firebase.database().ref(`${this.state.roomID}/playersEntered/${this.state.nameList[0].name}/hand`).set(player1Hand);
+      firebase.database().ref(`${this.state.roomID}/playersEntered/${this.state.nameList[1].name}/hand`).set(player2Hand);
     }
   };
 
@@ -106,25 +106,29 @@ class Game extends Component {
   }
 
   playCard = value => {
+    this.setFirstPlayerTurn()
     let cardsToRemove = this.state.player1Hand.filter(card => card.value === value)
     let selectedCardLength = cardsToRemove.length
     if ((selectedCardLength >= this.state.selectedOption) &&
         (value > this.state.lastDiscarded[0].value) &&
-        // (this.state.whichPlayerTurn)) {
-        (true)) {
+        (this.state.whichPlayerTurn)) {
+      this.setNextPlayerTurn(this.state.player1Name)
       cardsToRemove = cardsToRemove.slice(0, this.state.selectedOption)
       this.setState({player1Hand: this.state.player1Hand.filter(card => !cardsToRemove.includes(card)),
                      flashMessage: '',
                      discardPile: this.state.discardPile.concat(cardsToRemove),
                      lastDiscarded: cardsToRemove})
-      firebase.database().ref(`${this.state.roomID}`).set({'lastDiscarded': cardsToRemove});
-    } else if (this.state.whichPlayerTurn !== this.state.player1Name) {
+      firebase.database().ref(`${this.state.roomID}`).update({'lastDiscarded': cardsToRemove});
+    }
+    else if (this.state.whichPlayerTurn !== this.state.player1Name) {
       this.setState({flashMessage: `Espere a sua vez`})
-    } else if (selectedCardLength >= this.state.selectedOption) {
+    }
+    else if (selectedCardLength >= this.state.selectedOption) {
       this.setState({flashMessage: `Você precisa escolher uma carta mais alta do que a ultima descartada,
                                     a ordem, da mais fraca para a mais forte é:
                                     2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A`})
-    } else {
+    }
+    else {
       this.setState({flashMessage: `Você precisa ter ${this.state.selectedOption} desta carta para poder descarta-la(s)`})
     }
   }
@@ -141,12 +145,42 @@ class Game extends Component {
     console.log(this.state.player1Name)
   }
 
+  setFirstPlayerTurn = () => {
+    const whichPlayerTurnRef = firebase.database().ref().child(`${this.state.roomID}/whichPlayerTurn`);
+    whichPlayerTurnRef.once('value', snap => {
+      if (snap.val()) {
+        this.setState({ whichPlayerTurn: Object.values(snap.val()) })
+      }
+    });
+    if (this.state.whichPlayerTurn === '') {
+      firebase.database().ref(`${this.state.roomID}`).update({'whichPlayerTurn': this.state.nameList[0].name});
+      this.setState({whichPlayerTurn: this.state.nameList[0].name})
+    }
+  }
+
+  setNextPlayerTurn = name => {
+    const whichPlayerTurnRef = firebase.database().ref().child(`${this.state.roomID}/whichPlayerTurn`);
+    whichPlayerTurnRef.once('value', snap => {
+      if (snap.val()) {
+        this.setState({ whichPlayerTurn: Object.values(snap.val()) })
+      }
+    });
+    if (name === this.state.nameList[0].name) {
+      firebase.database().ref(`${this.state.roomID}`).update({'whichPlayerTurn': this.state.nameList[1].name});
+      this.setState({whichPlayerTurn: this.state.nameList[1].name})
+    }
+    else if (name === this.state.nameList[1].name) {
+      firebase.database().ref(`${this.state.roomID}`).update({'whichPlayerTurn': this.state.nameList[0].name});
+      this.setState({whichPlayerTurn: this.state.nameList[0].name})
+    }
+  }
+
   componentDidMount(){
     let persistedName = localStorage.getItem('@gh-page/name');
     let persistedRoomID = localStorage.getItem('@gh-page/roomID');
     let persistedToken = localStorage.getItem('@gh-page/token');
     this.setState({
-      name: persistedName,
+      player1Name: persistedName,
       roomID: persistedRoomID,
       token: persistedToken
     })
@@ -154,14 +188,14 @@ class Game extends Component {
 
     firebase.database().ref(`${persistedRoomID}/lastDiscarded/`).set([{value: 0}]);
 
-    const playersEnteredRef = firebase.database().ref().child(`${persistedRoomID}/playersEntered`);
-    playersEnteredRef.on('value', snap => {
+    const nameListRef = firebase.database().ref().child(`${persistedRoomID}/nameList`);
+    nameListRef.on('value', snap => {
       if (snap.val()) {
-        this.setState({ playersEntered: Object.values(snap.val()) })
+        this.setState({ nameList: Object.values(snap.val()) })
       }
     });
 
-    firebase.database().ref(`${persistedRoomID}/playersEntered/${persistedToken}/name/`).set(persistedName);
+    firebase.database().ref(`${persistedRoomID}/nameList/${persistedToken}/name/`).set(persistedName);
     const rootRef = firebase.database().ref();
     const cardsDealtRef = rootRef.child(`${persistedRoomID}/cardsDealt`);
     cardsDealtRef.on('value', snap => {
