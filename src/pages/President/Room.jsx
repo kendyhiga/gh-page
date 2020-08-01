@@ -41,6 +41,7 @@ class Room extends Component {
     var amountOfPlayers = this.state.players.length;
     let gameStartButton
     if (amountOfPlayers === 2) {
+      localStorage.setItem('@gh-page/playerNames', this.state.players)
       gameStartButton =
         <Link to={{ pathname: '/president/game',
                 state: { name: this.state.name,

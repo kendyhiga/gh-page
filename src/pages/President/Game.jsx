@@ -14,7 +14,7 @@ class Game extends Component {
       discardPile: [],
       lastDiscarded: [{value: 0}],
       selectedOption: 1,
-      flashMessage: '',
+      flashDangerMessage: '',
       newRound: true,
       roomID: 1,
       playersInTheRoom: 1,
@@ -70,6 +70,7 @@ class Game extends Component {
         })
       })
       this.updateScoreBoard()
+      debugger
     } else {
       var shuffledDECK, player1Hand, player2Hand;
       shuffledDECK = this.shuffle(DECK)
@@ -89,10 +90,10 @@ class Game extends Component {
 
   sortHand = (player, hand) => {
     if (this.state.sorted) {
-      this.setState({player1Hand: hand.sort((a, b) => a.name > b.name ? -1 : 1),
+      this.setState({player1Hand: hand.sort((a, b) => a.name > b.name ? 1 : -1),
         sorted: false})
     } else {
-      this.setState({player1Hand: hand.sort((a, b) => a.name > b.name ? 1 : -1),
+      this.setState({player1Hand: hand.sort((a, b) => a.name > b.name ? -1 : 1),
         sorted: true})
     }
   }
@@ -103,7 +104,7 @@ class Game extends Component {
       this.setState({lastDiscarded: [{value: 0}],
                     discardPile: [],
                     newRound: true,
-                    flashMessage: '',
+                    flashDangerMessage: '',
                     consecutiveSkips: 0})
     }
   }
@@ -118,28 +119,36 @@ class Game extends Component {
       this.setNextPlayerTurn(this.state.player1Name)
       cardsToRemove = cardsToRemove.slice(0, this.state.selectedOption)
       this.setState({player1Hand: this.state.player1Hand.filter(card => !cardsToRemove.includes(card)),
-                     flashMessage: '',
+                     flashDangerMessage: '',
                      discardPile: this.state.discardPile.concat(cardsToRemove),
                      lastDiscarded: cardsToRemove})
       firebase.database().ref(`${this.state.roomID}`).update({'lastDiscarded': cardsToRemove});
       firebase.database().ref(`${this.state.roomID}/playersEntered/${this.state.player1Name}/`).update({hand: this.state.player1Hand});
       this.updateScoreBoard()
       if (value === 14) {
+        firebase.database().ref(`${this.state.roomID}`).update({'whichPlayerTurn': this.state.player1Name});
         this.setState({
-
+          flashHintMessage: 'Você ganhou a rodada, você iniciará a próxima',
+          lastDiscarded: [{value: 0}]
         })
       }
     }
     else if (this.state.whichPlayerTurn !== this.state.player1Name) {
-      this.setState({flashMessage: `Espere a sua vez`})
+      this.setState({
+        flashDangerMessage: `Espere a sua vez`,
+        flashHintMessage: ''      
+      })
     }
     else if (selectedCardLength >= this.state.selectedOption) {
-      this.setState({flashMessage: `Você precisa escolher uma carta mais alta do que a ultima descartada,
+      this.setState({flashDangerMessage: `Você precisa escolher uma carta mais alta do que a ultima descartada,
                                     a ordem, da mais fraca para a mais forte é:
                                     2, 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A`})
     }
     else {
-      this.setState({flashMessage: `Você precisa ter ${this.state.selectedOption} desta carta para poder descarta-la(s)`})
+      this.setState({
+        flashDangerMessage: `Você precisa ter ${this.state.selectedOption} desta carta para poder descarta-la(s)`,
+        flashHintMessage: ''
+      })
     }
   }
 
@@ -185,10 +194,12 @@ class Game extends Component {
     let persistedName = localStorage.getItem('@gh-page/name');
     let persistedRoomID = localStorage.getItem('@gh-page/roomID');
     let persistedToken = localStorage.getItem('@gh-page/token');
+    let persistedPlayerNames = localStorage.getItem('@gh-page/playerNames');
     this.setState({
       player1Name: persistedName,
       roomID: persistedRoomID,
-      token: persistedToken
+      token: persistedToken,
+      nameList: persistedPlayerNames
     })
     let nameList = this.state.nameList.concat(persistedName)
 
@@ -224,6 +235,22 @@ class Game extends Component {
         this.setState({ whichPlayerTurn: snap.val() })
       }
     });
+
+    if (this.state.nameList[1] && (this.state.nameList[0] === this.state.player1Name)) {
+      const scoreBoardRef = firebase.database().ref().child(`${this.state.roomID}/playersEntered/${this.state.nameList[1].name}/handSize`);
+      scoreBoardRef.on('value', snap => {
+        if (snap.val()) {
+          this.setState({ scoreBoard: snap.val() })
+        }
+      });
+    } else if (this.state.nameList[0] === this.state.player1Name) {
+      const scoreBoardRef = firebase.database().ref().child(`${this.state.roomID}/playersEntered/${this.state.nameList[0].name}/handSize`);
+      scoreBoardRef.on('value', snap => {
+        if (snap.val()) {
+          this.setState({ scoreBoard: snap.val() })
+        }
+      });
+    }
   };
 
   render() {
@@ -275,25 +302,36 @@ class Game extends Component {
           )}
         </div>
 
-          { this.state.started &&
-          <div className='row action-buttons'>
-            <div className='btn btn-dark button' onClick={() => this.sortHand(1, this.state.player1Hand)}>
-              Ordenar mão
-            </div>
-            <div className='btn btn-dark button' onClick={() => this.skipTurn()}>
-              Passar a vez
-            </div>
+        { this.state.started &&
+        <div className='row action-buttons'>
+          <span>É a vez de {this.state.whichPlayerTurn}</span>
+          <br></br>
+          <div className='btn btn-dark button' onClick={() => this.sortHand(1, this.state.player1Hand)}>
+            Ordenar mão
           </div>
-          } { !this.state.started && 
-          <div className='row action-buttons'>
-            <div className='btn btn-dark button' onClick={() => this.dealCards()}>
-              Distribuir as cartas
-            </div>
+          <div className='btn btn-dark button' onClick={() => this.skipTurn()}>
+            Passar a vez
           </div>
-          }
+        </div>
+        } { !this.state.started && 
+        <div className='row action-buttons'>
+          <div className='btn btn-dark button' onClick={() => this.dealCards()}>
+            Distribuir as cartas
+          </div>
+        </div>
+        }
 
-          { this.state.flashMessage &&
-            <div className='alert alert-danger flash-message col-4'>{this.state.flashMessage}</div>}
+        { this.state.flashHintMessage &&
+          <div className='alert alert-primary flash-message col-4'>
+            {this.state.flashHintMessage}
+          </div>
+        }
+        <br></br>
+        { this.state.flashDangerMessage &&
+          <div className='alert alert-danger flash-message col-4'>
+            {this.state.flashDangerMessage}
+          </div>
+        }
       </div>
     );
   }
