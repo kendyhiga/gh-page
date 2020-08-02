@@ -154,9 +154,14 @@ class Game extends Component {
 
   // Game logic
   canStartNewRound = amount => {
-    if (this.state.lastDiscarded === [{value: 0}]) {
+    if ((this.state.lastDiscarded[0].value === 0) && (this.state.whichPlayerTurn === this.state.player1Name)) {
+      console.log('entrou')
       this.setState({selectedOption: amount,
                      newRound: false})
+    } else if (this.state.lastDiscarded[0].value === 0) {
+      this.setState({ flashDangerMessage: 'Não esta na sua vez' })
+    } else {
+      this.setState({ flashDangerMessage: 'Você só pode alterar a quantidade de cartas, no inicio da rodada e na sua vez' })
     }
   }
 
