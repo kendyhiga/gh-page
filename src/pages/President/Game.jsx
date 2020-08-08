@@ -158,6 +158,7 @@ class Game extends Component {
       console.log('entrou')
       this.setState({selectedOption: amount,
                      newRound: false})
+      firebase.database().ref(`${this.state.roomID}`).update({'selectedOptionRef': amount});
     } else if (this.state.lastDiscarded[0].value === 0) {
       this.setState({ flashDangerMessage: 'Não esta na sua vez' })
     } else {
@@ -241,6 +242,13 @@ class Game extends Component {
       }
     });
 
+    const selectedOptionRef = firebase.database().ref().child(`${this.state.roomID}/selectedOptionRef`);
+      selectedOptionRef.on('value', snap => {
+        if (snap.val()) {
+          this.setState({ selectedOption: snap.val() })
+        }
+    });
+
     if (this.state.nameList[1] && (this.state.nameList[0] === this.state.player1Name)) {
       const scoreBoardRef = firebase.database().ref().child(`${this.state.roomID}/playersEntered/${this.state.nameList[1].name}/handSize`);
       scoreBoardRef.on('value', snap => {
@@ -290,6 +298,7 @@ class Game extends Component {
           <button className={this.selectedOption(1)}
                   onClick={() => this.canStartNewRound(1)}>Uma</button>
         </div>
+
         <div className='deck-hand'>
         <h4>{this.state.player1Name}</h4>
           {this.state.player1Hand && this.state.player1Hand.map((card, index) =>
