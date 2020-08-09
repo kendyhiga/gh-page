@@ -242,21 +242,21 @@ class Game extends Component {
       })
     });
 
-    const whichPlayerTurnRef = firebase.database().ref().child(`${this.state.roomID}/whichPlayerTurn`);
+    const whichPlayerTurnRef = firebase.database().ref().child(`${persistedRoomID}/whichPlayerTurn`);
     whichPlayerTurnRef.on('value', snap => {
       if (snap.val()) {
         this.setState({ whichPlayerTurn: snap.val() })
       }
     });
 
-    const selectedOptionRef = firebase.database().ref().child(`${this.state.roomID}/selectedOptionRef`);
+    const selectedOptionRef = firebase.database().ref().child(`${persistedRoomID}/selectedOptionRef`);
       selectedOptionRef.on('value', snap => {
         if (snap.val()) {
           this.setState({ selectedOption: snap.val() })
         }
     });
 
-    const consecutiveSkipsRef = firebase.database().ref().child(`${this.state.roomID}/consecutiveSkips`);
+    const consecutiveSkipsRef = firebase.database().ref().child(`${persistedRoomID}/consecutiveSkips`);
       consecutiveSkipsRef.on('value', snap => {
         if (snap.val()) {
           this.setState({ consecutiveSkips: snap.val() })
@@ -264,14 +264,14 @@ class Game extends Component {
     });
 
     if (this.state.nameList[1] && (this.state.nameList[0] === this.state.player1Name)) {
-      const scoreBoardRef = firebase.database().ref().child(`${this.state.roomID}/playersEntered/${this.state.nameList[1].name}/handSize`);
+      const scoreBoardRef = firebase.database().ref().child(`${persistedRoomID}/playersEntered/${this.state.nameList[1].name}/handSize`);
       scoreBoardRef.on('value', snap => {
         if (snap.val()) {
           this.setState({ scoreBoard: snap.val() })
         }
       });
     } else if (this.state.nameList[0] === this.state.player1Name) {
-      const scoreBoardRef = firebase.database().ref().child(`${this.state.roomID}/playersEntered/${this.state.nameList[0].name}/handSize`);
+      const scoreBoardRef = firebase.database().ref().child(`${persistedRoomID}/playersEntered/${this.state.nameList[0].name}/handSize`);
       scoreBoardRef.on('value', snap => {
         if (snap.val()) {
           this.setState({ scoreBoard: snap.val() })
