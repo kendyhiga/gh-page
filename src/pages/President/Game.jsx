@@ -62,7 +62,7 @@ class Game extends Component {
     if (this.state.cardsDealt) {
       const rootRef = firebase.database().ref();
       const cardsDealtRef = rootRef.child(`${this.state.roomID}/playersEntered/${this.state.player1Name}/hand`);
-      cardsDealtRef.once('value', snap => {
+      cardsDealtRef.on('value', snap => {
         this.setState({
           player1Hand: snap.val(),
           cardsDealt: true,
@@ -70,7 +70,6 @@ class Game extends Component {
         })
       })
       this.updateScoreBoard()
-      debugger
     } else {
       var shuffledDECK, player1Hand, player2Hand;
       shuffledDECK = this.shuffle(DECK)
@@ -99,18 +98,22 @@ class Game extends Component {
   }
 
   skipTurn = () => {
-    this.setState({consecutiveSkips: this.state.consecutiveSkips + 1})
-    if (this.state.consecutiveSkips === this.state.playersInTheRoom) {
-      this.setState({lastDiscarded: [{value: 0}],
-                    discardPile: [],
-                    newRound: true,
-                    flashDangerMessage: '',
-                    consecutiveSkips: 0})
+    if (this.state.player1Name === this.state.whichPlayerTurn) {
+      let currentConsecutiveSkips = this.state.consecutiveSkips + 1
+      this.setState({consecutiveSkips: currentConsecutiveSkips})
+      if (this.state.consecutiveSkips === this.state.playersInTheRoom) {
+        this.setState({lastDiscarded: [{value: 0}],
+                      discardPile: [],
+                      newRound: true,
+                      flashDangerMessage: '',
+                      consecutiveSkips: 0})
+      }
+      firebase.database().ref(`${this.state.roomID}/`).update({consecutiveSkips: currentConsecutiveSkips});
+      this.setNextPlayerTurn(this.state.player1Name)
     }
   }
 
   playCard = value => {
-    this.setFirstPlayerTurn()
     let cardsToRemove = this.state.player1Hand.filter(card => card.value === value)
     let selectedCardLength = cardsToRemove.length
     if ((selectedCardLength >= this.state.selectedOption) &&
@@ -121,7 +124,8 @@ class Game extends Component {
       this.setState({player1Hand: this.state.player1Hand.filter(card => !cardsToRemove.includes(card)),
                      flashDangerMessage: '',
                      discardPile: this.state.discardPile.concat(cardsToRemove),
-                     lastDiscarded: cardsToRemove})
+                     lastDiscarded: cardsToRemove,
+                     consecutiveSkips: 0})
       firebase.database().ref(`${this.state.roomID}`).update({'lastDiscarded': cardsToRemove});
       firebase.database().ref(`${this.state.roomID}/playersEntered/${this.state.player1Name}/`).update({hand: this.state.player1Hand});
       this.updateScoreBoard()
@@ -168,8 +172,9 @@ class Game extends Component {
 
   setFirstPlayerTurn = () => {
     if (this.state.whichPlayerTurn === '') {
-      firebase.database().ref(`${this.state.roomID}`).update({'whichPlayerTurn': this.state.nameList[0].name});
-      this.setState({whichPlayerTurn: this.state.nameList[0].name})
+      const name = localStorage.getItem('@gh-page/name')
+      firebase.database().ref(`${this.state.roomID}`).update({'whichPlayerTurn': name});
+      this.setState({whichPlayerTurn: name})
     }
   }
 
@@ -190,8 +195,10 @@ class Game extends Component {
       const scoreBoardRef = rootRef.child(`${this.state.roomID}/playersEntered/${this.state.player1Name}/hand`);      
       let handSize = 0  
       scoreBoardRef.once('value', snap => {
-        handSize = snap.val().length
-        firebase.database().ref(`${this.state.roomID}/playersEntered/${this.state.player1Name}/`).update({'handSize': handSize});
+        if (snap.val()) {
+          handSize = snap.val().length
+          firebase.database().ref(`${this.state.roomID}/playersEntered/${this.state.player1Name}/`).update({'handSize': handSize});
+        }
       })
     }
   }
@@ -249,6 +256,13 @@ class Game extends Component {
         }
     });
 
+    const consecutiveSkipsRef = firebase.database().ref().child(`${this.state.roomID}/consecutiveSkips`);
+      consecutiveSkipsRef.on('value', snap => {
+        if (snap.val()) {
+          this.setState({ consecutiveSkips: snap.val() })
+        }
+    });
+
     if (this.state.nameList[1] && (this.state.nameList[0] === this.state.player1Name)) {
       const scoreBoardRef = firebase.database().ref().child(`${this.state.roomID}/playersEntered/${this.state.nameList[1].name}/handSize`);
       scoreBoardRef.on('value', snap => {
@@ -264,6 +278,7 @@ class Game extends Component {
         }
       });
     }
+    this.setFirstPlayerTurn()
   };
 
   render() {
