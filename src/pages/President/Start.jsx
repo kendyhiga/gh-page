@@ -22,8 +22,14 @@ class Start extends Component {
                     availableRoom: true })
   }
 
-  generateRoomID() {
-    return Math.ceil(Math.random() * (10000 - 1));
+  setLocalStorageParams(newRoom) {
+    if (newRoom) {
+      const roomID = Math.ceil(Math.random() * (10000 - 1))
+      this.setState({roomID: roomID})
+      localStorage.setItem('@gh-page/roomID', roomID)
+    } else {
+      localStorage.setItem('@gh-page/roomID', this.state.roomID)
+    }
   }
 
   render() {
@@ -32,7 +38,8 @@ class Start extends Component {
       enterRoom =
         <Link to={{ pathname: 'president/room',
                     state: { name: this.state.name,
-                            roomID: this.state.roomID }}}>
+                            roomID: this.state.roomID }}}
+              onClick={ () => this.setLocalStorageParams(false) }>
           <div className="card bg-dark">
             <h1>Entrar na sala {this.state.roomID} </h1>
           </div>
@@ -43,7 +50,8 @@ class Start extends Component {
       <h1>{this.state.name}</h1>
         <Link to={{ pathname: 'president/room',
                     state: { name: this.state.name,
-                             roomID: this.generateRoomID() }}}>
+                             roomID: this.state.roomID }}}
+              onClick={ () => this.setLocalStorageParams(true) }>
           <div className="card bg-dark">
             <h1>Criar sala</h1>
           </div>

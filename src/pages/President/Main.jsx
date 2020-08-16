@@ -18,6 +18,7 @@ class President extends Component {
     event.preventDefault();
     this.setState({ name: this.state.name,
                     nameFilled: true })
+    localStorage.setItem('@gh-page/name', this.state.name)
   }
 
   render() {
