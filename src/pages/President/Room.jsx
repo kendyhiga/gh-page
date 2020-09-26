@@ -12,9 +12,7 @@ class Room extends Component {
     let persistedName = localStorage.getItem('@gh-page/name');
     let persistedRoomID = localStorage.getItem('@gh-page/roomID');
     let persistedToken = localStorage.getItem('@gh-page/token');
-    if (persistedName && persistedRoomID && persistedToken) {
-      console.log('all set to go!')
-    } else {
+    if (!(persistedName && persistedRoomID && persistedToken)) {
       persistedName = this.props.location.state.name
       persistedRoomID = this.props.location.state.roomID
       persistedToken = Math.ceil(Math.random() * (10000 - 1))
